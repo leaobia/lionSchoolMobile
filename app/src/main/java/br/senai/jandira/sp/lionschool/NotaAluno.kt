@@ -94,7 +94,8 @@ fun NotaAlunoFun(matricula: String) {
         color = Color(51, 71, 176)
     ) {
         Column(Modifier.fillMaxSize()) {
-            Button(onClick = {
+            Button(modifier = Modifier.padding(10.dp),
+                onClick = {
                 var openStudents = Intent(context, Alunos::class.java)
                 context.startActivity(openStudents)
             }) {

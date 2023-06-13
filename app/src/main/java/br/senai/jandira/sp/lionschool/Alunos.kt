@@ -110,9 +110,10 @@ fun Aluno(curso: String, nomeCurso: String) {
                             context.startActivity(openNotaAluno)
                         }, modifier = Modifier
                             .fillMaxWidth()
-                            .padding(10.dp) , colors = ButtonDefaults.buttonColors( corFundo)) {
+                            .padding(20.dp, 30.dp, 20.dp, 0.dp) , colors = ButtonDefaults.buttonColors( corFundo)) {
                             Card(modifier = Modifier
-                                .fillMaxSize(), backgroundColor = corFundo , border = BorderStroke(1.dp,Color(254, 164, 64)), shape = RoundedCornerShape(10.dp)
+                                .fillMaxSize(), backgroundColor = corFundo , border = BorderStroke(1.dp,Color(254, 164, 64)),
+                                shape = RoundedCornerShape(10.dp)
                             ) {
                                 Row(modifier = Modifier
                                     .fillMaxSize()
