@@ -96,7 +96,7 @@ fun NotaAlunoFun(matricula: String) {
         Column(Modifier.fillMaxSize()) {
             Button(modifier = Modifier.padding(10.dp),
                 onClick = {
-                var openStudents = Intent(context, Alunos::class.java)
+                var openStudents = Intent(context, Courses::class.java)
                 context.startActivity(openStudents)
             }) {
                 Icon(
