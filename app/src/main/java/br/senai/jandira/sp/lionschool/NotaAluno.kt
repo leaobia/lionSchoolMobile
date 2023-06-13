@@ -16,11 +16,13 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -120,13 +122,37 @@ fun NotaAlunoFun(matricula: String) {
             LazyColumn(modifier = Modifier.padding(20.dp, 10.dp, 0.dp, 0.dp)){
                 items(aluno.curso.disciplinas){
                         //Text(text = it.nome)
+                    var barra = 2.4 * it.media.toDouble()
+                    var corBarra = Color.LightGray
+
+                    if (it.media.toDouble() > 60){
+                        corBarra = Color(2,19,92)
+                    }else if (it.media.toDouble() < 60 && it.media.toDouble() > 50){
+                        corBarra = Color(254,194,64)
+                    }else{
+                        corBarra = Color(128,0,0)
+                    }
                     Card(modifier = Modifier
                         .fillMaxSize()
-                        .padding(0.dp, 20.dp, 20.dp, 0.dp) .height(80.dp), backgroundColor = Color.White, shape = RoundedCornerShape(10.dp)) {
-                         Column(modifier = Modifier.fillMaxSize()) {
-                             Row(modifier = Modifier.fillMaxWidth() .padding(20.dp, 10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                        .padding(0.dp, 20.dp, 20.dp, 0.dp)
+                        .height(80.dp), backgroundColor = Color.White, shape = RoundedCornerShape(10.dp)) {
+                         Column(modifier = Modifier.fillMaxSize() .padding(20.dp, 10.dp)) {
+                             Row(modifier = Modifier
+                                 .fillMaxWidth() .padding(0.dp, 0.dp, 0.dp, 10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween ) {
                                  Text(text = it.nome)
                                  Text(text = it.media)
+                             }
+                             Box(modifier = Modifier.size(330.dp,20.dp) .background(Color.LightGray)){
+                                 Box(
+                                     modifier = Modifier
+                                         .fillMaxHeight()
+                                         .clip(RoundedCornerShape(0.dp, 10.dp, 10.dp,0.dp))
+                                         .background(
+                                             corBarra
+                                         )
+                                         .width(barra.dp)
+                                         .padding(0.dp, 0.dp, 5.dp, 0.dp)
+                                 )
                              }
                          }
                     }
