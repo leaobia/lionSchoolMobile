@@ -98,15 +98,21 @@ fun Aluno(curso: String, nomeCurso: String) {
                 Text(text = nomeCurso.substring(6 ) ,color = Color.White, fontSize = 24.sp, textAlign = TextAlign.Center)
                 LazyColumn(){
                     items(listStudent){
+                        var corFundo = Color(51,71,186);
+                        if (it.status == "Cursando"){
+                            corFundo= Color(2,19,92)
+                        }else{
+                            corFundo= Color(254,194,64)
+                        }
                         Button(onClick = {
                             var openNotaAluno = Intent(context, NotaAluno::class.java)
                             openNotaAluno.putExtra("Matricula", "${it.matricula}")
                             context.startActivity(openNotaAluno)
                         }, modifier = Modifier
                             .fillMaxWidth()
-                            .padding(10.dp) , colors = ButtonDefaults.buttonColors( Color(51, 71, 176))) {
+                            .padding(10.dp) , colors = ButtonDefaults.buttonColors( corFundo)) {
                             Card(modifier = Modifier
-                                .fillMaxSize(), backgroundColor = Color(51,71,186) , border = BorderStroke(1.dp,Color(254, 164, 64)), shape = RoundedCornerShape(10.dp)
+                                .fillMaxSize(), backgroundColor = corFundo , border = BorderStroke(1.dp,Color(254, 164, 64)), shape = RoundedCornerShape(10.dp)
                             ) {
                                 Row(modifier = Modifier
                                     .fillMaxSize()
