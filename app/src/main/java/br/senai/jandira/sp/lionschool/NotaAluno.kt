@@ -55,7 +55,7 @@ fun NotaAlunoFun(matricula: String) {
     val context = LocalContext.current
 
     var aluno by remember {
-        mutableStateOf(br.senai.jandira.sp.lionschool.model.Aluno("", "", "", "", emptyList()))
+        mutableStateOf(br.senai.jandira.sp.lionschool.model.Aluno(foto = "", nome ="", matricula ="", curso = null, status = ""))
     }
 
     val call = RetrofitFactory().getStudentService().getAlunoByMatricula(matricula)
@@ -69,9 +69,10 @@ fun NotaAlunoFun(matricula: String) {
                 val studentResponse = response.body()
                 if (studentResponse != null){
                     aluno = studentResponse
+                    Log.i("tag3", "StudentGradeScreen: ${aluno}")
                 }
             }else{
-                Log.e("teste", "Erro na resposta da API: ${response.code()}")
+                Log.e("testeErro", "Erro na resposta da API: ${response.code()}")
             }
         }
 
@@ -81,6 +82,7 @@ fun NotaAlunoFun(matricula: String) {
     })
 
     Log.i("tag", "StudentGradeScreen: ${aluno}")
+    Log.i("tag2", "StudentGradeScreen: ${matricula}")
 
     Surface(
         modifier = Modifier.fillMaxSize(),
