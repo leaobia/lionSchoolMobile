@@ -17,16 +17,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.jandira.sp.lionschool.model.Aluno
+import br.senai.jandira.sp.lionschool.model.novoCurso
 import br.senai.jandira.sp.lionschool.services.RetrofitFactory
 import br.senai.jandira.sp.lionschool.ui.theme.LionSchoolTheme
 import coil.compose.AsyncImage
@@ -55,7 +58,7 @@ fun NotaAlunoFun(matricula: String) {
     val context = LocalContext.current
 
     var aluno by remember {
-        mutableStateOf(br.senai.jandira.sp.lionschool.model.Aluno(foto = "", nome ="", matricula ="", curso = null, status = ""))
+        mutableStateOf(br.senai.jandira.sp.lionschool.model.Aluno(foto = "", nome ="", matricula ="", curso = novoCurso("", "", "", emptyList()), status = ""))
     }
 
     val call = RetrofitFactory().getStudentService().getAlunoByMatricula(matricula)
@@ -89,7 +92,6 @@ fun NotaAlunoFun(matricula: String) {
         color = Color(51, 71, 176)
     ) {
         Column(Modifier.fillMaxSize()) {
-            Text(text = aluno.nome)
             Button(onClick = {
                 var openStudents = Intent(context, Alunos::class.java)
                 context.startActivity(openStudents)
@@ -99,9 +101,42 @@ fun NotaAlunoFun(matricula: String) {
                     contentDescription = ""
                 )
                         }
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(50.dp, 15.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                AsyncImage(model = aluno.foto, contentDescription = null, modifier = Modifier.size(90.dp))
+                Text(text = aluno.nome.toUpperCase(), color = Color.White,
+                    textAlign = TextAlign.Center, modifier = Modifier.width(180.dp), fontWeight = FontWeight.Light)
+            }
+            Text(
+                text = "Statistics",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 24.sp,
+                modifier = Modifier.padding(20.dp, 10.dp, 0.dp, 0.dp)
+            )
+
+
+            LazyColumn(modifier = Modifier.padding(20.dp, 10.dp, 0.dp, 0.dp)){
+                items(aluno.curso.disciplinas){
+                        //Text(text = it.nome)
+                    Card(modifier = Modifier
+                        .fillMaxSize()
+                        .padding(0.dp, 20.dp, 20.dp, 0.dp) .height(80.dp), backgroundColor = Color.White, shape = RoundedCornerShape(10.dp)) {
+                         Column(modifier = Modifier.fillMaxSize()) {
+                             Row(modifier = Modifier.fillMaxWidth() .padding(20.dp, 10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                                 Text(text = it.nome)
+                                 Text(text = it.media)
+                             }
+                         }
                     }
                 }
             }
+
+
+        }
+    }
+}
 
 
 

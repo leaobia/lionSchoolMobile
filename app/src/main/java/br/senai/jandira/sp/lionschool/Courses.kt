@@ -114,7 +114,8 @@ fun CoursesFun() {
                             .fillMaxWidth()
                             .padding(10.dp) , colors = ButtonDefaults.buttonColors( Color(51, 71, 176))) {
                             Card(modifier = Modifier
-                                .fillMaxSize(), backgroundColor = Color(51,71,186) , border = BorderStroke(1.dp,Color(254, 164, 64)), shape = RoundedCornerShape(10.dp)) {
+                                .fillMaxSize(), backgroundColor = Color(51,71,186) ,
+                                border = BorderStroke(1.dp,Color(254, 164, 64)), shape = RoundedCornerShape(10.dp)) {
                                 Column(modifier = Modifier
                                     .fillMaxSize()
                                     .padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {

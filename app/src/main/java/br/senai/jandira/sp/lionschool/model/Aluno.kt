@@ -5,5 +5,5 @@ data class Aluno (
     val nome: String,
     val matricula: String,
     val status: String,
-    val curso: novoCurso? = null
+    val curso: novoCurso
 )
