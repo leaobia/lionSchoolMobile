@@ -51,6 +51,9 @@ fun CoursesFun() {
     var listCourse by remember {
         mutableStateOf(listOf<br.senai.jandira.sp.lionschool.model.Course>())
     }
+    var nameCourseState by remember {
+        mutableStateOf("")
+    }
 
     val call = RetrofitFactory().getCourseService().getCourses()
 
@@ -69,6 +72,19 @@ fun CoursesFun() {
 
 
 
+    var listaCards = listCourse
+    fun filterByName (name: String) {
+
+        var listaNova = listCourse.filter {
+            val regex = Regex(name, RegexOption.IGNORE_CASE)
+            it.nome.contains(regex)
+        }
+        if(!listaNova.isEmpty()){
+            listaCards = listaNova
+        }else if(name == ""){
+            listaCards = listCourse
+        }
+    }
 
         Surface(
         modifier = Modifier.fillMaxSize(),
@@ -80,7 +96,11 @@ fun CoursesFun() {
                 .padding(0.dp, 50.dp, 0.dp, 0.dp),horizontalAlignment = Alignment.CenterHorizontally) {
             Text(text = "Escolha um curso para gerenciar", color = Color.White, fontSize = 30.sp, textAlign = TextAlign.Center, modifier = Modifier.padding(0.dp,0.dp,0.dp,30.dp))
             OutlinedTextField(
-                value = "",  onValueChange = {
+                value = nameCourseState,
+                onValueChange = {
+                    nameCourseState = it
+
+                    filterByName(it)
                 },
                 modifier = Modifier.size(340.dp,60.dp) ,
                 label = { Text(text = "Find your course", color = Color(183,182,180), fontSize = 18.sp, modifier = Modifier.padding(15.dp,0.dp,0.dp,0.dp)) },
@@ -104,7 +124,7 @@ fun CoursesFun() {
                     .padding(20.dp, 30.dp, 0.dp, 0.dp), horizontalAlignment = Alignment.Start) {
                 Text(text = "Cursos",color = Color.White, fontSize = 28.sp)
                 LazyColumn(){
-                    items(listCourse){
+                    items(listaCards){
                         Button(onClick = {
                             val openStudents = Intent(context, Alunos::class.java)
                             openStudents.putExtra("Curso", "${it.sigla}")

@@ -75,6 +75,7 @@ fun Aluno(curso: String, nomeCurso: String) {
 
         }
     })
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color(51, 71, 176)
@@ -96,6 +97,7 @@ fun Aluno(curso: String, nomeCurso: String) {
             }
             Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text = nomeCurso.substring(6 ) ,color = Color.White, fontSize = 24.sp, textAlign = TextAlign.Center)
+
                 LazyColumn(){
                     items(listStudent){
                         var corFundo = Color(51,71,186);
